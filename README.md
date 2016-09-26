@@ -32,9 +32,11 @@ possible Mersenne counter part.
 Mersenne primes only have appeared with a odd exponent with the exception of:
 2^2 - 1 = 3. So I will generate a list/vector/array
 (whatever it is called in the language I decide to use) with the follow idea:
-  oddNumbers = filter odd [1..200]
-  mersenneify n = (2^n) - 1
-  possibleMersennePrimes = map (mersenneify) oddNumbers
+```Haskell
+oddNumbers = filter odd [1..200]
+mersenneify n = (2^n) - 1
+possibleMersennePrimes = map (mersenneify) oddNumbers
+```
 i.e. list of odd numbers raised to the order of two
 then minus one. After that test each element with the
 square root method talked about in the class.
