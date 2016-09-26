@@ -1,4 +1,4 @@
-CS1200 - Calculate the 8th Mersenne prime.
+# CS1200 - Calculate the 8th Mersenne prime.
 
 The given MATLAB code is as such:
 ```MATLAB
@@ -22,13 +22,13 @@ end
 twopow
 ```
 
-Hypotheses:
+#### Hypotheses:
 The generation of primes(nlimit) contributers to the slow down, since it is
 generating all primes, not just Mersenne primes. However what I reason what is
 the cause for the main slow down is then the code checks each prime for it's
 possible Mersenne counter part.
 
-What I plan to try:
+#### What I plan to try:
 Mersenne primes only have appeared with a odd exponent with the exception of:
 2^2 - 1 = 3. So I will generate a list/vector/array
 (whatever it is called in the language I decide to use) with the follow idea:
