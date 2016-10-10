@@ -44,7 +44,7 @@ int main(void)
                                  * C programmers and use char[] for everything.
                                  */
   {
-    if (i % 2 == 1 || i == 2) /* Mersenne Primes have not appeared for even
+    if (i & 1 == 1 || i == 2) /* Mersenne Primes have not appeared for even
                                * numbers (except 2), so this speeds up some computation.*/
     { unsigned long long int temp = (integerOrder(2, i) - 1);
       possibleMersennePrimes.push_back(temp);
