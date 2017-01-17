@@ -6,7 +6,7 @@
 #include <vector>
 
 /* Non-scalable for BigNum values, use GMP mpz_ui_pow_ui if you need bigger. */
-unsigned long long int integerOrder(int base, int order)
+inline unsigned long long int integerOrder(int base, int order)
 {
   unsigned long long int r = 1;
   while (order--)
@@ -21,11 +21,18 @@ unsigned long long int integerOrder(int base, int order)
  * Assume primes are all odd.
  * Oh, and the efficiency of the algorithm is completely dependent on how big
  * possiblePrime gets. It beats the sqrt(possiblePrime) in benchmarks. */
-bool isPrime(unsigned long long int possiblePrime)
-{ for (unsigned long long int i = 3; i * i <= possiblePrime; i += 2)
-  { if (possiblePrime % i == 0)
-    return false;
-  }
+inline bool isPrime(unsigned long long int possiblePrime)
+{
+	if (possiblePrime != 2) {
+		if (possiblePrime < 2 || possiblePrime % 2 == 0) {
+			return false;
+		}
+		for (unsigned long long int i = 3; i * i <= possiblePrime; i += 2)
+		{
+			if (possiblePrime % i == 0)
+				return false;
+		}
+	}
   return true;
 }
 
@@ -44,7 +51,7 @@ int main(void)
                                  * C programmers and use char[] for everything.
                                  */
   {
-    if (i & 1 == 1 || i == 2) /* Mersenne Primes have not appeared for even
+    if ((i & 1) == 1 || i == 2) /* Mersenne Primes have not appeared for even
                                * numbers (except 2), so this speeds up some computation.*/
     { unsigned long long int temp = (integerOrder(2, i) - 1);
       possibleMersennePrimes.push_back(temp);
