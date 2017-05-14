@@ -42,7 +42,8 @@ int main(void)
    * if you want to use GMP, const sized arrays are your friend. */
   std::vector<unsigned long long int> possibleMersennePrimes;
   std::vector<int> exponents;
-  for (int i = 2; i <= 63; i++) /* 2^61 - 1 calculates the 8th Mersenne Prime,
+  bool firstRun = true;
+  for (int i = 1; i <= 63; i+=2) /* 2^61 - 1 calculates the 8th Mersenne Prime,
                                  * higher, and beyond use GMP.
                                  * The max capable with primative data types is:
                                  * 18446744073709551615
@@ -51,12 +52,16 @@ int main(void)
                                  * C programmers and use char[] for everything.
                                  */
   {
-    if ((i & 1) == 1 || i == 2) /* Mersenne Primes have not appeared for even
-                               * numbers (except 2), so this speeds up some computation.*/
-    { unsigned long long int temp = (integerOrder(2, i) - 1);
-      possibleMersennePrimes.push_back(temp);
-      exponents.push_back(i); /* So we can tell the user what Mersenne prime. */
+    if (firstRun) {
+      possibleMersennePrimes.push_back(integerOrder(2, 2) - 1);
+      exponents.push_back(2);
+      firstRun = false;
     }
+    /* Mersenne Primes have not appeared for even numbers (except 2), so this
+     * speeds up some computation.*/
+    unsigned long long int temp = (integerOrder(2, i) - 1);
+    possibleMersennePrimes.push_back(temp);
+    exponents.push_back(i); /* So we can tell the user what Mersenne prime. */
   }
   /* Output, aka listing what is and is not primes to the terminal/console. */
   std::cout << "A list of our possible Mersenne primes: " << std::endl;
@@ -64,9 +69,6 @@ int main(void)
   {
     if (isPrime(possibleMersennePrimes[i]))
       std::cout << "2^" << exponents[i] << " - 1 is prime: "
-                << possibleMersennePrimes[i] << std::endl;
-    else
-      std::cout << "2^" << exponents[i] << " - 1 is NOT prime: "
                 << possibleMersennePrimes[i] << std::endl;
   }
   return 0; /* C++11 automatically does this, however... */
